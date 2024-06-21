@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:genie/features/auth/pages/splash.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,7 +10,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: SplashScreen(),
+    );
   }
 }
 
@@ -29,5 +33,9 @@ we will use feature folder structure
 
 
 for now just this 
+
+
+for converting text to song 
+flutter_tts: ^4.0.2
 
 */
