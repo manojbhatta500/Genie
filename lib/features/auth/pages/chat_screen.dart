@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:genie/features/auth/widgets/chat_feild.dart';
 import 'package:genie/features/auth/widgets/message_widgets.dart';
 
 class ChatScreen extends StatelessWidget {
@@ -36,6 +37,7 @@ class ChatScreen extends StatelessWidget {
               ],
             ),
           ),
+          ChatFeild()
         ],
       ),
     );

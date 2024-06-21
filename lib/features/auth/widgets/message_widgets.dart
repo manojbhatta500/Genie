@@ -18,7 +18,7 @@ class SenderMessageWidget extends StatelessWidget {
             margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
             padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
             decoration: BoxDecoration(
-                color: Colors.blue,
+                color: Color(0XFF64748B),
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(20),
                     bottomRight: Radius.circular(20),
@@ -65,7 +65,7 @@ class ReceiverMessageWidget extends StatelessWidget {
             margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
             padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
             decoration: BoxDecoration(
-              color: Colors.grey[300],
+              color: Color(0XFFEEEEEE),
               borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(20),
                   bottomRight: Radius.circular(20),
