@@ -30,7 +30,7 @@ class SenderMessageWidget extends StatelessWidget {
           ),
           SvgPicture.asset(
             'assets/man.svg',
-            height: 25,
+            height: 35,
           ),
           SizedBox(
             width: 10,
@@ -59,7 +59,7 @@ class ReceiverMessageWidget extends StatelessWidget {
           ),
           SvgPicture.asset(
             'assets/robat.svg',
-            height: 25,
+            height: 35,
           ),
           Container(
             margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),

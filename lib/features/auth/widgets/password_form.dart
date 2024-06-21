@@ -29,7 +29,7 @@ class _PasswordFormState extends State<PasswordForm> {
 
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
-      height: 45,
+      height: 55,
       width: 0.7 * width,
       // Remove horizontal padding to eliminate extra space
       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
