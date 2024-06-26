@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:genie/features/auth/pages/login.dart';
-import 'package:genie/features/auth/widgets/get_started_button.dart';
+import 'package:genie/pages/login.dart';
+import 'package:genie/widgets/get_started_button.dart';
 import 'package:genie/utils/custom_colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';

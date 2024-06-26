@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:genie/features/auth/widgets/chat_feild.dart';
-import 'package:genie/features/auth/widgets/message_widgets.dart';
+import 'package:genie/widgets/chat_feild.dart';
+import 'package:genie/widgets/message_widgets.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({super.key});

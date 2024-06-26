@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:genie/features/auth/auth_bloc/auth_bloc.dart';
-import 'package:genie/features/auth/pages/chat_screen.dart';
-import 'package:genie/features/auth/pages/login.dart';
-import 'package:genie/features/auth/widgets/custom_form_feild.dart';
-import 'package:genie/features/auth/widgets/password_form.dart';
+import 'package:genie/blocs/auth_bloc/auth_bloc.dart';
+import 'package:genie/pages/chat_screen.dart';
+import 'package:genie/pages/login.dart';
+import 'package:genie/widgets/custom_form_feild.dart';
+import 'package:genie/widgets/password_form.dart';
 import 'package:genie/utils/custom_colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 

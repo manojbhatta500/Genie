@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:genie/features/auth/auth_bloc/auth_bloc.dart';
-import 'package:genie/features/auth/pages/splash.dart';
+import 'package:genie/blocs/auth_bloc/auth_bloc.dart';
+import 'package:genie/pages/splash.dart';
 
 void main() {
   runApp(const MyApp());

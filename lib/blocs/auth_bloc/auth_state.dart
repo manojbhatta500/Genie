@@ -9,7 +9,10 @@ final class LoginLoading extends AuthState {}
 
 final class LoginFailed extends AuthState {}
 
-final class LoginSuccess extends AuthState {}
+final class LoginSuccess extends AuthState {
+  final LoginModel data;
+  LoginSuccess({required this.data});
+}
 
 final class SignupLoading extends AuthState {}
 

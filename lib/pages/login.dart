@@ -1,9 +1,14 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:genie/features/auth/pages/chat_screen.dart';
-import 'package:genie/features/auth/pages/signup.dart';
-import 'package:genie/features/auth/widgets/custom_form_feild.dart';
-import 'package:genie/features/auth/widgets/password_form.dart';
+import 'package:genie/blocs/auth_bloc/auth_bloc.dart';
+import 'package:genie/pages/bottomnavbar.dart';
+import 'package:genie/pages/chat_screen.dart';
+import 'package:genie/pages/signup.dart';
+import 'package:genie/widgets/custom_form_feild.dart';
+import 'package:genie/widgets/password_form.dart';
 import 'package:genie/utils/custom_colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -67,6 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             CustomTextFormField(
               hintText: 'E-mail ID',
+              controller: email_controller,
               prefixIcon: SizedBox(
                 child: SvgPicture.asset(
                   'assets/mess.svg',
@@ -113,7 +119,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    // Handle "Forgot Password" tap here
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => BottomNavBar()));
                   },
                   child: Text(
                     'Forgot Password?',
@@ -129,33 +138,52 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(
               height: 20,
             ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ChatScreen()));
+            BlocListener<AuthBloc, AuthState>(
+              listener: (context, state) {
+                if (state is LoginLoading) {
+                  log('this is login loading state');
+                } else if (state is LoginFailed) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      backgroundColor: Colors.red,
+                      content: Text('Failed Login. Try Again')));
+                } else if (state is LoginSuccess) {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ChatScreen()));
+                } else {
+                  log('this is else state');
+                }
               },
-              child: Container(
-                height: 50,
-                width: 0.7 * width,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  color: CustomColors.purpleColor,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        'Login',
-                        style: GoogleFonts.crimsonPro(
-                          color: CustomColors.whiteColor,
-                          fontSize: 19,
-                          fontWeight: FontWeight.w700,
+              child: GestureDetector(
+                onTap: () {
+                  log('this is login screen email checker : ${email_controller.text}');
+
+                  BlocProvider.of<AuthBloc>(context).add(LoginEvent(
+                      email: email_controller.text,
+                      password: password_controller.text));
+                },
+                child: Container(
+                  height: 50,
+                  width: 0.7 * width,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    color: CustomColors.purpleColor,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          'Login',
+                          style: GoogleFonts.crimsonPro(
+                            color: CustomColors.whiteColor,
+                            fontSize: 19,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

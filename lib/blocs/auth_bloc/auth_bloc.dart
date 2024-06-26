@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
-import 'package:genie/features/auth/repository/auth_repository.dart';
+import 'package:genie/models/login_model.dart';
+import 'package:genie/repository/auth_repository.dart';
 import 'package:meta/meta.dart';
 
 part 'auth_event.dart';
@@ -17,6 +19,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   FutureOr<void> _loginevent(LoginEvent event, Emitter<AuthState> emit) async {
     emit(LoginLoading());
+    log('this is email checker : ${event.email}');
+    final repoResponse = await manager.login(event.email, event.password);
+
+    repoResponse.fold((l) {
+      emit(LoginFailed());
+    }, (r) {
+      emit(LoginSuccess(data: r));
+    });
   }
 
   FutureOr<void> _signupevent(
