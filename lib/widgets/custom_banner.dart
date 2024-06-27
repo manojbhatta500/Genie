@@ -55,7 +55,7 @@ class _CustomBannerState extends State<CustomBanner>
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Connect with AI',
+                  'Chat with AI',
                   style: GoogleFonts.crimsonPro(
                     color: Colors.black,
                     fontSize: 16,
