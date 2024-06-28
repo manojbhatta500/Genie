@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:genie/pages/archive_screen.dart';
 import 'package:genie/pages/chat_screen.dart';
 import 'package:genie/pages/menus.dart';
+import 'package:genie/pages/option_screen.dart';
 import 'package:genie/pages/profile.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -15,8 +17,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   static final List<Widget> _widgetOptions = <Widget>[
     const Menus(),
-    const ChatScreen(),
-    const Profile(),
+    const OptionScreen(),
+    const ArchiveScreen(),
     const Profile()
   ];
 
@@ -39,8 +41,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.chat),
-            label: 'Chats',
+            icon: Icon(Icons.chat_bubble_sharp),
+            label: 'Ai',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.archive),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:genie/pages/chat_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
@@ -66,7 +67,12 @@ class _CustomBannerState extends State<CustomBanner>
                 ScaleTransition(
                   scale: _animation,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ChatScreen()));
+                    },
                     child: Text(
                       'Click Here',
                       style: GoogleFonts.crimsonPro(

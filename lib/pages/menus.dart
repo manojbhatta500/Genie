@@ -19,7 +19,7 @@ class Menus extends StatelessWidget {
               width: 10,
             ),
             Text(
-              "Hi ,  Manoj bhatta",
+              "Hi ,  Manoj bhatta ",
               style: GoogleFonts.crimsonPro(
                 color: Colors.black,
                 fontSize: 20,
