@@ -32,11 +32,20 @@ class _CustomBannerState extends State<CustomBanner>
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+      //margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       decoration: BoxDecoration(
-        color: Color(0XFF001C69).withOpacity(0.3),
-        borderRadius: BorderRadius.circular(30),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 10,
+            spreadRadius: 5,
+          ),
+        ],
       ),
+      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
       height: 110,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:genie/pages/about_us_screen.dart';
+import 'package:genie/pages/privacy_policy.dart';
 import 'package:genie/widgets/profile_container.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -54,15 +56,25 @@ class _ProfileState extends State<Profile> {
                     onButtonPressed: () {},
                   ),
                   ProfileContainer(
-                    title: 'help',
-                    onButtonPressed: () {},
-                  ),
-                  ProfileContainer(
-                    title: 'Profile',
-                    onButtonPressed: () {},
+                    title: 'About us',
+                    onButtonPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AboutUsScreen()));
+                    },
                   ),
                   ProfileContainer(
                     title: 'Privacy Policy',
+                    onButtonPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PrivacyPolicyScreen()));
+                    },
+                  ),
+                  ProfileContainer(
+                    title: 'Log out',
                     onButtonPressed: () {},
                   ),
                 ],

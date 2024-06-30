@@ -21,6 +21,19 @@ class ProfileContainer extends StatelessWidget {
       onTap: onButtonPressed,
       child: Container(
         height: 60,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 1,
+              spreadRadius: 1,
+            ),
+          ],
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+        margin: const EdgeInsets.symmetric(vertical: 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

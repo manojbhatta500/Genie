@@ -91,10 +91,9 @@ class OptionScreen extends StatelessWidget {
                   children: [
                     _buildFeatureItem(
                         'Answering your queries', Icons.question_answer),
-                    _buildFeatureItem(
-                        'Generating creative content', Icons.create),
-                    _buildFeatureItem(
-                        'Assisting with scheduling and tasks', Icons.schedule),
+                    _buildFeatureItem('Writing poems', Icons.library_books),
+                    _buildFeatureItem('Sharing jokes', Icons.emoji_emotions),
+                    _buildFeatureItem('Recommending books', Icons.book),
                     _buildFeatureItem('And much more...', Icons.more_horiz),
                   ],
                 ),

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:genie/utils/custom_colors.dart';
+import 'package:genie/widgets/saved_container.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SavedChatButton extends StatelessWidget {
@@ -42,50 +43,15 @@ class SavedChatButton extends StatelessWidget {
             ],
           ),
         ),
-        Text(
-          "See More",
-          style: GoogleFonts.crimsonPro(
-            color: CustomColors.greenColor,
-            fontSize: 14,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
+        // Text(
+        //   "See More",
+        //   style: GoogleFonts.crimsonPro(
+        //     color: CustomColors.greenColor,
+        //     fontSize: 14,
+        //     fontWeight: FontWeight.w700,
+        //   ),
+        // ),
       ],
-    );
-  }
-}
-
-class SavedChatMenu extends StatelessWidget {
-  const SavedChatMenu({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      margin: EdgeInsets.symmetric(vertical: 10),
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.grey,
-          ),
-          borderRadius: BorderRadius.circular(10)),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('hello world'),
-            Text('hello world'),
-            Text('hello world'),
-            Text('hello world'),
-            Text('hello world'),
-            Text('hello world'),
-            Text('hello world'),
-            Text('hello world'),
-          ],
-        ),
-      ),
     );
   }
 }

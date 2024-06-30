@@ -20,20 +20,21 @@ class MenuContainer extends StatelessWidget {
     return GestureDetector(
       onTap: onButtonPressed,
       child: Container(
-        height: 180,
+        // height: 180,
         width: 160,
         margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Color(0XFF001C69).withOpacity(0.3),
-              Color(0XFF001C69).withOpacity(0.5)
-            ],
-          ),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 10,
+              spreadRadius: 5,
+            ),
+          ],
         ),
+        padding: const EdgeInsets.all(15),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Column(
