@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:genie/utils/custom_colors.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:genie/blocs/normal_chat/normal_chat_bloc.dart';
+import 'package:genie/blocs/normal_chat/normal_chat_event.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ChatFeild extends StatelessWidget {
-  ChatFeild({
-    super.key,
-  });
-  TextEditingController sendMessage = TextEditingController();
+class ChatField extends StatelessWidget {
+  const ChatField({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController sendMessageController = TextEditingController();
+
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       height: 55,
@@ -35,30 +36,42 @@ class ChatFeild extends StatelessWidget {
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(30),
-        child: TextField(
-          cursorColor: Colors.black38,
-          controller: sendMessage,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30),
-              borderSide: BorderSide.none,
+        child: Row(
+          children: [
+            Expanded(
+              child: TextField(
+                controller: sendMessageController,
+                cursorColor: Colors.black38,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: 'Write your message',
+                  hintStyle: GoogleFonts.nunito(
+                    color: Color(0XFFA1A1A1),
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
+                ),
+              ),
             ),
-            suffixIcon: SvgPicture.asset(
-              'assets/send.svg',
-              height: 25,
+            GestureDetector(
+              onTap: () {
+                String message = sendMessageController.text.trim();
+                if (message.isNotEmpty) {
+                  BlocProvider.of<NormalChatBloc>(context)
+                      .add(SendUserChat(userString: message));
+                  sendMessageController.clear();
+                }
+              },
+              child: Container(
+                padding: EdgeInsets.all(8),
+                child: SvgPicture.asset(
+                  'assets/send.svg',
+                  height: 25,
+                ),
+              ),
             ),
-            alignLabelWithHint: true,
-            filled: true,
-            fillColor: Colors.transparent,
-            contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
-            hintText: 'Write your message',
-            hintStyle: GoogleFonts.nunito(
-              color: Color(0XFFA1A1A1),
-              fontSize: 14,
-              fontWeight: FontWeight.w700,
-            ),
-            enabled: true,
-          ),
+          ],
         ),
       ),
     );
