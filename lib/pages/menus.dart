@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:genie/pages/message_input.dart';
+import 'package:genie/pages/poetry_input.dart';
+import 'package:genie/pages/song_input.dart';
 import 'package:genie/pages/story_input.dart';
 import 'package:genie/widgets/custom_banner.dart';
 import 'package:genie/widgets/menu_container.dart';
@@ -51,17 +54,30 @@ class Menus extends StatelessWidget {
                     title: "Poetry",
                     desc: "Compose beautiful poems",
                     imageAddress: 'assets/poem.json',
-                    onButtonPressed: () {}),
+                    onButtonPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PoetryInput()));
+                    }),
                 MenuContainer(
                     title: "Songs",
                     desc: "Create unique songs",
                     imageAddress: 'assets/song.json',
-                    onButtonPressed: () {}),
+                    onButtonPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => SongInput()));
+                    }),
                 MenuContainer(
                     title: "Messages",
                     desc: "Craft flirty and love messages",
                     imageAddress: 'assets/love.json',
-                    onButtonPressed: () {}),
+                    onButtonPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MessageInput()));
+                    }),
               ],
             ),
           ],

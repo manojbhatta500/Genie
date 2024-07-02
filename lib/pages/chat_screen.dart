@@ -25,6 +25,7 @@ class _ChatScreenState extends State<ChatScreen> {
           'Genie',
           style: TextStyle(color: Colors.white, fontSize: 20),
         ),
+        iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: Color(0XFF64748B),
         // actions: [
         //   IconButton(

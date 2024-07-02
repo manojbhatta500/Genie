@@ -1,52 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class StoryInput extends StatefulWidget {
-  const StoryInput({super.key});
+class SongInput extends StatefulWidget {
+  const SongInput({super.key});
 
   @override
-  _StoryInputState createState() => _StoryInputState();
+  State<SongInput> createState() => _SongInputState();
 }
 
-class _StoryInputState extends State<StoryInput> {
-  final List<String> storyTypes = [
-    'Romance',
+class _SongInputState extends State<SongInput> {
+  final List<String> songThemes = [
+    'Love',
+    'Heartbreak',
+    'Friendship',
+    'Inspiration',
+    'Hope',
+    'Dreams',
+    'Nature',
     'Adventure',
-    'Sci-Fi',
-    'Mystery',
-    'Fantasy',
-    'Horror',
-    'Comedy',
-    'Drama',
-    'Thriller',
-    'Historical',
-    'Western',
-    'Action',
-    'Biography',
-    'Memoir',
-    'Self-help',
-    'Health',
-    'Travel',
-    'Guide',
-    'Children',
-    'Cooking',
-    'Art',
-    'Poetry',
-    'Motivation',
-    'Religion',
-    'Philosophy'
+    'Reflection',
+    'Nostalgia',
+    'Celebration',
   ];
-  final List<String> selectedStoryTypes = [];
-  String selectedLength = '0 - 100';
-  final TextEditingController storyInputController = TextEditingController();
+
+  final List<String> genres = [
+    'Pop',
+    'Rock',
+    'Hip-hop',
+    'Country',
+    'Jazz',
+    'Electronic',
+    'Classical',
+    'R&B',
+    'Indie',
+    'Folk',
+    'Reggae',
+    'Metal',
+  ];
+
+  final List<String> selectedSongThemes = [];
+  final List<String> selectedGenres = [];
+  final TextEditingController songInputController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Generate Your Story',
+          'Create Song',
           style: GoogleFonts.crimsonPro(color: Colors.white),
         ),
         backgroundColor: Color(0XFF64748B),
@@ -61,7 +62,7 @@ class _StoryInputState extends State<StoryInput> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Select Story Types',
+                'Select Song Themes',
                 style: GoogleFonts.crimsonPro(
                   color: Colors.black,
                   fontSize: 22,
@@ -72,17 +73,17 @@ class _StoryInputState extends State<StoryInput> {
               Wrap(
                 spacing: 8.0,
                 runSpacing: 4.0,
-                children: storyTypes.map((type) {
-                  final isSelected = selectedStoryTypes.contains(type);
+                children: songThemes.map((theme) {
+                  final isSelected = selectedSongThemes.contains(theme);
                   return ChoiceChip(
-                    label: Text(type),
+                    label: Text(theme),
                     selected: isSelected,
                     onSelected: (selected) {
                       setState(() {
                         if (selected) {
-                          selectedStoryTypes.add(type);
+                          selectedSongThemes.add(theme);
                         } else {
-                          selectedStoryTypes.remove(type);
+                          selectedSongThemes.remove(theme);
                         }
                       });
                     },
@@ -92,10 +93,14 @@ class _StoryInputState extends State<StoryInput> {
                       color: isSelected ? Colors.white : Colors.black,
                     ),
                     avatar: isSelected
-                        ? CircleAvatar(
-                            backgroundColor: Colors.white,
-                            child: FaIcon(
-                              FontAwesomeIcons.solidHeart,
+                        ? Container(
+                            padding: EdgeInsets.all(2),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Icon(
+                              Icons.check,
                               color: Colors.white,
                               size: 16,
                             ),
@@ -106,7 +111,7 @@ class _StoryInputState extends State<StoryInput> {
               ),
               SizedBox(height: 20),
               Text(
-                'Choose Story Length',
+                'Select Genre',
                 style: GoogleFonts.crimsonPro(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -114,26 +119,48 @@ class _StoryInputState extends State<StoryInput> {
                 ),
               ),
               SizedBox(height: 10),
-              Column(
-                children:
-                    ['0 - 100', '100 - 1000', '1000 - 2000'].map((length) {
-                  return RadioListTile<String>(
-                    title: Text(length,
-                        style: GoogleFonts.crimsonPro(color: Colors.black)),
-                    value: length,
-                    groupValue: selectedLength,
-                    onChanged: (String? value) {
+              Wrap(
+                spacing: 8.0,
+                runSpacing: 4.0,
+                children: genres.map((genre) {
+                  final isSelected = selectedGenres.contains(genre);
+                  return ChoiceChip(
+                    label: Text(genre),
+                    selected: isSelected,
+                    onSelected: (selected) {
                       setState(() {
-                        selectedLength = value!;
+                        if (selected) {
+                          selectedGenres.add(genre);
+                        } else {
+                          selectedGenres.remove(genre);
+                        }
                       });
                     },
-                    activeColor: Colors.deepPurple,
+                    selectedColor: Color(0XFF64748B),
+                    backgroundColor: Colors.grey[300],
+                    labelStyle: TextStyle(
+                      color: isSelected ? Colors.white : Colors.black,
+                    ),
+                    avatar: isSelected
+                        ? Container(
+                            padding: EdgeInsets.all(2),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Icon(
+                              Icons.check,
+                              color: Colors.white,
+                              size: 16,
+                            ),
+                          )
+                        : null,
                   );
                 }).toList(),
               ),
               SizedBox(height: 20),
               Text(
-                'Enter Story Details',
+                'Enter Song Lyrics',
                 style: GoogleFonts.crimsonPro(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -142,7 +169,7 @@ class _StoryInputState extends State<StoryInput> {
               ),
               SizedBox(height: 10),
               TextField(
-                controller: storyInputController,
+                controller: songInputController,
                 maxLines: 5,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -150,7 +177,7 @@ class _StoryInputState extends State<StoryInput> {
                   ),
                   filled: true,
                   fillColor: Colors.white,
-                  hintText: 'Tell us your story...',
+                  hintText: 'Type your song description here...',
                   hintStyle: GoogleFonts.crimsonPro(color: Colors.grey),
                 ),
                 style: GoogleFonts.crimsonPro(color: Colors.black),
@@ -159,7 +186,7 @@ class _StoryInputState extends State<StoryInput> {
               Center(
                 child: ElevatedButton(
                   onPressed: () {
-                    // Handle story generation logic
+                    // Handle song creation logic
                   },
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
@@ -181,7 +208,7 @@ class _StoryInputState extends State<StoryInput> {
                     ),
                     padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                     child: Text(
-                      'Generate Story',
+                      'Create Song',
                       style: GoogleFonts.crimsonPro(color: Colors.white),
                     ),
                   ),

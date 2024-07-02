@@ -1,52 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class StoryInput extends StatefulWidget {
-  const StoryInput({super.key});
+class PoetryInput extends StatefulWidget {
+  const PoetryInput({super.key});
 
   @override
-  _StoryInputState createState() => _StoryInputState();
+  _PoetryInputState createState() => _PoetryInputState();
 }
 
-class _StoryInputState extends State<StoryInput> {
-  final List<String> storyTypes = [
-    'Romance',
-    'Adventure',
-    'Sci-Fi',
-    'Mystery',
-    'Fantasy',
-    'Horror',
-    'Comedy',
-    'Drama',
-    'Thriller',
-    'Historical',
-    'Western',
-    'Action',
-    'Biography',
-    'Memoir',
-    'Self-help',
-    'Health',
-    'Travel',
-    'Guide',
-    'Children',
-    'Cooking',
-    'Art',
-    'Poetry',
-    'Motivation',
-    'Religion',
-    'Philosophy'
+class _PoetryInputState extends State<PoetryInput> {
+  final List<String> poemTypes = [
+    'Love',
+    'Friendship',
+    'Sonnet',
+    'Haiku',
+    'Limerick',
+    'Free Verse',
+    'Acrostic',
+    'Ballad',
+    'Epic',
+    'Ode',
+    'Tanka',
+    'Couplet',
+    'Elegy',
+    'Epigram',
+    'Ghazal',
+    'Villanelle',
+    'Sestina',
   ];
-  final List<String> selectedStoryTypes = [];
-  String selectedLength = '0 - 100';
-  final TextEditingController storyInputController = TextEditingController();
+  final List<String> selectedPoemTypes = [];
+  String selectedLength = 'Short (1 - 20 lines)';
+  final TextEditingController poemInputController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Generate Your Story',
+          'Generate Poetry',
           style: GoogleFonts.crimsonPro(color: Colors.white),
         ),
         backgroundColor: Color(0XFF64748B),
@@ -61,7 +52,7 @@ class _StoryInputState extends State<StoryInput> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Select Story Types',
+                'Select Poem Types',
                 style: GoogleFonts.crimsonPro(
                   color: Colors.black,
                   fontSize: 22,
@@ -72,17 +63,17 @@ class _StoryInputState extends State<StoryInput> {
               Wrap(
                 spacing: 8.0,
                 runSpacing: 4.0,
-                children: storyTypes.map((type) {
-                  final isSelected = selectedStoryTypes.contains(type);
+                children: poemTypes.map((type) {
+                  final isSelected = selectedPoemTypes.contains(type);
                   return ChoiceChip(
                     label: Text(type),
                     selected: isSelected,
                     onSelected: (selected) {
                       setState(() {
                         if (selected) {
-                          selectedStoryTypes.add(type);
+                          selectedPoemTypes.add(type);
                         } else {
-                          selectedStoryTypes.remove(type);
+                          selectedPoemTypes.remove(type);
                         }
                       });
                     },
@@ -92,10 +83,14 @@ class _StoryInputState extends State<StoryInput> {
                       color: isSelected ? Colors.white : Colors.black,
                     ),
                     avatar: isSelected
-                        ? CircleAvatar(
-                            backgroundColor: Colors.white,
-                            child: FaIcon(
-                              FontAwesomeIcons.solidHeart,
+                        ? Container(
+                            padding: EdgeInsets.all(2),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Icon(
+                              Icons.check,
                               color: Colors.white,
                               size: 16,
                             ),
@@ -106,7 +101,7 @@ class _StoryInputState extends State<StoryInput> {
               ),
               SizedBox(height: 20),
               Text(
-                'Choose Story Length',
+                'Select Length',
                 style: GoogleFonts.crimsonPro(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -115,8 +110,11 @@ class _StoryInputState extends State<StoryInput> {
               ),
               SizedBox(height: 10),
               Column(
-                children:
-                    ['0 - 100', '100 - 1000', '1000 - 2000'].map((length) {
+                children: [
+                  'Short (1 - 20 lines)',
+                  'Medium (20 - 50 lines)',
+                  'Long (50+ lines)',
+                ].map((length) {
                   return RadioListTile<String>(
                     title: Text(length,
                         style: GoogleFonts.crimsonPro(color: Colors.black)),
@@ -133,7 +131,7 @@ class _StoryInputState extends State<StoryInput> {
               ),
               SizedBox(height: 20),
               Text(
-                'Enter Story Details',
+                'Enter Poem Details',
                 style: GoogleFonts.crimsonPro(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -142,7 +140,7 @@ class _StoryInputState extends State<StoryInput> {
               ),
               SizedBox(height: 10),
               TextField(
-                controller: storyInputController,
+                controller: poemInputController,
                 maxLines: 5,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -150,7 +148,7 @@ class _StoryInputState extends State<StoryInput> {
                   ),
                   filled: true,
                   fillColor: Colors.white,
-                  hintText: 'Tell us your story...',
+                  hintText: 'Type your poem details here...',
                   hintStyle: GoogleFonts.crimsonPro(color: Colors.grey),
                 ),
                 style: GoogleFonts.crimsonPro(color: Colors.black),
@@ -159,7 +157,7 @@ class _StoryInputState extends State<StoryInput> {
               Center(
                 child: ElevatedButton(
                   onPressed: () {
-                    // Handle story generation logic
+                    // Handle poem generation logic
                   },
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
@@ -181,7 +179,7 @@ class _StoryInputState extends State<StoryInput> {
                     ),
                     padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                     child: Text(
-                      'Generate Story',
+                      'Generate Poem',
                       style: GoogleFonts.crimsonPro(color: Colors.white),
                     ),
                   ),
