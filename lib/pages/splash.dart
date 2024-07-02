@@ -1,12 +1,30 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:genie/pages/login.dart';
+import 'package:genie/repository/key_repository.dart';
+import 'package:genie/utils/key.dart';
 import 'package:genie/widgets/get_started_button.dart';
 import 'package:genie/utils/custom_colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    KeyRepository manager = KeyRepository();
+    final repoResponse = manager.fetchGeminiKey();
+    log(repoResponse.toString());
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

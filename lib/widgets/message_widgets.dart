@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
 class SenderMessageWidget extends StatelessWidget {
@@ -16,7 +17,7 @@ class SenderMessageWidget extends StatelessWidget {
     return Align(
       alignment: Alignment.centerRight,
       child: Container(
-        width: 0.8 * width,
+        width: 0.9 * width,
         margin: const EdgeInsets.symmetric(vertical: 5),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -75,10 +76,13 @@ class ReceiverMessageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
 
+    // Remove unwanted characters
+    String cleanedMessage = message.replaceAll('*', '').replaceAll('#', '');
+
     return Align(
       alignment: Alignment.centerLeft,
       child: Container(
-        width: 0.8 * width,
+        width: 0.9 * width,
         margin: const EdgeInsets.symmetric(vertical: 5),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -94,7 +98,7 @@ class ReceiverMessageWidget extends StatelessWidget {
               ),
               child: Container(
                 width: 30,
-                height: 30,
+                height: 50,
                 child: Lottie.asset('assets/bot.json'),
               ),
             ),
@@ -111,87 +115,18 @@ class ReceiverMessageWidget extends StatelessWidget {
                   ),
                 ),
                 child: isLoading
-                    ? TypingIndicator()
+                    ? Text('.........')
                     : Text(
-                        message,
-                        style: TextStyle(color: Colors.black, fontSize: 16),
+                        cleanedMessage,
+                        style: GoogleFonts.crimsonPro(
+                          color: Colors.black,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class TypingIndicator extends StatefulWidget {
-  @override
-  _TypingIndicatorState createState() => _TypingIndicatorState();
-}
-
-class _TypingIndicatorState extends State<TypingIndicator>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _animation;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      duration: const Duration(milliseconds: 1000),
-      vsync: this,
-    )..repeat(reverse: true);
-    _animation = CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _animation,
-      builder: (context, child) {
-        return Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Dot(animation: _animation, delay: 0.0),
-            Dot(animation: _animation, delay: 0.2),
-            Dot(animation: _animation, delay: 0.4),
-          ],
-        );
-      },
-    );
-  }
-}
-
-class Dot extends StatelessWidget {
-  final Animation<double> animation;
-  final double delay;
-
-  const Dot({Key? key, required this.animation, required this.delay})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-        parent: animation,
-        curve: Interval(delay, delay + 0.6, curve: Curves.easeInOut),
-      )),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 2.0),
-        child: Container(
-          width: 5,
-          height: 5,
-          decoration: BoxDecoration(
-            color: Colors.black, // Changed to black for better visibility
-            shape: BoxShape.circle,
-          ),
         ),
       ),
     );

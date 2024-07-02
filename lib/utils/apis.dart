@@ -4,4 +4,6 @@ class Apis {
   static String loginApi = '${baseUrl}/user/login';
   static String signupApi = '${baseUrl}/user/signup';
   static String updateuser = '${baseUrl}/user/update';
+
+  static String geminiKey = '${baseUrl}/key/key';
 }

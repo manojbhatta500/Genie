@@ -5,7 +5,7 @@ class NormolChatRepository {
     final model = GenerativeModel(
         model: 'gemini-1.5-flash',
         apiKey: 'AIzaSyDJgheNsjVl-85gYfmv1Ih_WBzdEmQLQBY',
-        generationConfig: GenerationConfig(maxOutputTokens: 100));
+        generationConfig: GenerationConfig(maxOutputTokens: 1000));
     // Initialize the chat
     final chat = model.startChat(history: []);
     var content = Content.text(message);
