@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:genie/pages/story_input.dart';
 import 'package:genie/widgets/custom_banner.dart';
 import 'package:genie/widgets/menu_container.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -40,7 +41,12 @@ class Menus extends StatelessWidget {
                     title: "Stories",
                     desc: "Generate amazing stories",
                     imageAddress: 'assets/story.json',
-                    onButtonPressed: () {}),
+                    onButtonPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => StoryInput()));
+                    }),
                 MenuContainer(
                     title: "Poetry",
                     desc: "Compose beautiful poems",
