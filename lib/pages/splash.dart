@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:genie/pages/login.dart';
 import 'package:genie/repository/key_repository.dart';
+import 'package:genie/repository/story_repository.dart';
 import 'package:genie/utils/key.dart';
 import 'package:genie/widgets/get_started_button.dart';
 import 'package:genie/utils/custom_colors.dart';

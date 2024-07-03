@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:genie/blocs/generate_story/generate_story_bloc.dart';
+import 'package:genie/pages/story_result.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class StoryInput extends StatefulWidget {
@@ -159,7 +162,32 @@ class _StoryInputState extends State<StoryInput> {
               Center(
                 child: ElevatedButton(
                   onPressed: () {
-                    // Handle story generation logic
+                    if (selectedStoryTypes.isEmpty ||
+                        storyInputController.text.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            'Please select at least one story type and enter your story details.',
+                            style: GoogleFonts.crimsonPro(color: Colors.white),
+                          ),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    } else {
+                      final String screenInput = storyInputController.text;
+                      final String prompt = '''
+Story Types: ${selectedStoryTypes.join(', ')}
+Story Length: $selectedLength
+Story Details: $screenInput
+combine all story types and return one story
+''';
+                      BlocProvider.of<GenerateStoryBloc>(context)
+                          .add(GenerateStory(prompt: prompt));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => StoryResult()));
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
