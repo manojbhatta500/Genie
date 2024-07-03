@@ -1,32 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:genie/blocs/generate_story/generate_story_bloc.dart';
+import 'package:genie/blocs/generate_poetry/generate_poetry_bloc.dart';
 import 'package:genie/widgets/save_container.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
-class StoryResult extends StatelessWidget {
-  const StoryResult({super.key});
+class PoetryResult extends StatelessWidget {
+  const PoetryResult({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Your Story',
+          'Your Poetry',
           style: GoogleFonts.crimsonPro(color: Colors.white),
         ),
         backgroundColor: const Color(0XFF64748B),
         elevation: 1,
         iconTheme: const IconThemeData(color: Colors.white),
         actions: [
-          BlocBuilder<GenerateStoryBloc, GenerateStoryState>(
+          BlocBuilder<GeneratePoetryBloc, GeneratePoetryState>(
             builder: (context, state) {
-              if (state is GenerateStorySuccess) {
+              if (state is GeneratePoetrySuccess) {
                 return IconButton(
                     onPressed: () {
                       SaveContainer(context,
-                          hintText: 'Enter Story Title', title: 'Story Title');
+                          hintText: 'Enter Poetry Title',
+                          title: 'poetry Title');
                     },
                     icon: Icon(Icons.save));
               } else {
@@ -44,7 +45,7 @@ class StoryResult extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Generated Story',
+                'Generated Poetry',
                 style: GoogleFonts.crimsonPro(
                   color: Colors.black,
                   fontSize: 22,
@@ -66,18 +67,21 @@ class StoryResult extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: BlocBuilder<GenerateStoryBloc, GenerateStoryState>(
+                child: BlocBuilder<GeneratePoetryBloc, GeneratePoetryState>(
                   builder: (context, state) {
-                    if (state is GenerateStoryLoading) {
+                    if (state is GeneratePoetryLoading) {
                       return Column(
                         children: [
-                          Lottie.asset('assets/story.json'),
+                          //
+
+                          Lottie.asset('assets/poem.json'),
                           const SizedBox(height: 10),
+
                           Lottie.asset('assets/loading.json', width: 100),
                           const SizedBox(height: 10),
-                          // 'assets/story.json'
+
                           Text(
-                            'Generating your story, please wait...',
+                            'Generating your Poetry, please wait...',
                             style: GoogleFonts.crimsonPro(
                               color: Colors.black,
                               fontSize: 18,
@@ -86,9 +90,9 @@ class StoryResult extends StatelessWidget {
                           ),
                         ],
                       );
-                    } else if (state is GenerateStorySuccess) {
+                    } else if (state is GeneratePoetrySuccess) {
                       // Clean the prompt response
-                      final cleanedPromptResponse = state.promptResponse
+                      final cleanedPromptResponse = state.promptResult
                           .replaceAll('#', '')
                           .replaceAll('"', '')
                           .replaceAll('*', '');
@@ -100,7 +104,7 @@ class StoryResult extends StatelessWidget {
                           fontSize: 18,
                         ),
                       );
-                    } else if (state is GenerateStoryFailed) {
+                    } else if (state is GeneratePoetryFailed) {
                       return Column(
                         children: [
                           Lottie.asset('assets/error.json'),
@@ -121,7 +125,7 @@ class StoryResult extends StatelessWidget {
                           Lottie.asset('assets/error.json'),
                           const SizedBox(height: 10),
                           Text(
-                            'Unexpected error occurred. Please try again.',
+                            'Something went wrong. Please try again.',
                             style: GoogleFonts.crimsonPro(
                               color: Colors.black,
                               fontSize: 18,

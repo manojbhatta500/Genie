@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:genie/blocs/generate_poetry/generate_poetry_bloc.dart';
+import 'package:genie/blocs/generate_story/generate_story_bloc.dart';
+import 'package:genie/pages/poetry_result.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PoetryInput extends StatefulWidget {
@@ -10,7 +14,6 @@ class PoetryInput extends StatefulWidget {
 
 class _PoetryInputState extends State<PoetryInput> {
   final List<String> poemTypes = [
-    'Love',
     'Friendship',
     'Sonnet',
     'Haiku',
@@ -157,7 +160,34 @@ class _PoetryInputState extends State<PoetryInput> {
               Center(
                 child: ElevatedButton(
                   onPressed: () {
-                    // Handle poem generation logic
+                    if (selectedPoemTypes.isEmpty ||
+                        poemInputController.text.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            'Please select at least one poetry type and enter Extra poetry details.',
+                            style: GoogleFonts.crimsonPro(color: Colors.white),
+                          ),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    } else {
+                      final String screenInput = poemInputController.text;
+                      final String prompt = '''
+generate a simple poetry or poem and here are the details.
+poetry Types: ${selectedPoemTypes.join(', ')}
+Story Length: $selectedLength
+Story Details: $screenInput
+combine all poetry types and return one poetry.
+it also must have emoji  and beautiful
+''';
+                      BlocProvider.of<GeneratePoetryBloc>(context)
+                          .add(GeneratePoetry(prompt: prompt));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PoetryResult()));
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),

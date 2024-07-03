@@ -14,7 +14,6 @@ class StoryInput extends StatefulWidget {
 
 class _StoryInputState extends State<StoryInput> {
   final List<String> storyTypes = [
-    'Romance',
     'Adventure',
     'Sci-Fi',
     'Mystery',
@@ -33,7 +32,6 @@ class _StoryInputState extends State<StoryInput> {
     'Travel',
     'Guide',
     'Children',
-    'Cooking',
     'Art',
     'Poetry',
     'Motivation',
@@ -41,7 +39,7 @@ class _StoryInputState extends State<StoryInput> {
     'Philosophy'
   ];
   final List<String> selectedStoryTypes = [];
-  String selectedLength = '0 - 100';
+  String selectedLength = '0 - 80';
   final TextEditingController storyInputController = TextEditingController();
 
   @override
@@ -109,7 +107,7 @@ class _StoryInputState extends State<StoryInput> {
               ),
               SizedBox(height: 20),
               Text(
-                'Choose Story Length',
+                'Choose Story Length (words)',
                 style: GoogleFonts.crimsonPro(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -118,8 +116,7 @@ class _StoryInputState extends State<StoryInput> {
               ),
               SizedBox(height: 10),
               Column(
-                children:
-                    ['0 - 100', '100 - 1000', '1000 - 2000'].map((length) {
+                children: ['0 - 80', '60 - 140', '150 - 300'].map((length) {
                   return RadioListTile<String>(
                     title: Text(length,
                         style: GoogleFonts.crimsonPro(color: Colors.black)),
@@ -153,7 +150,7 @@ class _StoryInputState extends State<StoryInput> {
                   ),
                   filled: true,
                   fillColor: Colors.white,
-                  hintText: 'Tell us your story...',
+                  hintText: 'Tell us Story description...',
                   hintStyle: GoogleFonts.crimsonPro(color: Colors.grey),
                 ),
                 style: GoogleFonts.crimsonPro(color: Colors.black),
@@ -167,7 +164,7 @@ class _StoryInputState extends State<StoryInput> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(
-                            'Please select at least one story type and enter your story details.',
+                            'Please select at least one story type and enter Extra story details.',
                             style: GoogleFonts.crimsonPro(color: Colors.white),
                           ),
                           backgroundColor: Colors.red,
@@ -180,6 +177,7 @@ Story Types: ${selectedStoryTypes.join(', ')}
 Story Length: $selectedLength
 Story Details: $screenInput
 combine all story types and return one story
+it also must have emoji and other things
 ''';
                       BlocProvider.of<GenerateStoryBloc>(context)
                           .add(GenerateStory(prompt: prompt));
