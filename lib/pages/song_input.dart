@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:genie/blocs/generate_song/generate_song_bloc.dart';
+import 'package:genie/pages/song_result.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SongInput extends StatefulWidget {
@@ -186,7 +188,37 @@ class _SongInputState extends State<SongInput> {
               SizedBox(height: 20),
               Center(
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    // Check if themes and genres are selected and lyrics are provided
+                    if (selectedSongThemes.isEmpty ||
+                        selectedGenres.isEmpty ||
+                        songInputController.text.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            'Please select at least one theme, one genre, and provide song lyrics.',
+                            style: GoogleFonts.crimsonPro(color: Colors.white),
+                          ),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    } else {
+                      final String prompt = '''
+generate a song and it must be beautiful and must have emoji here are the details.
+Themes: ${selectedSongThemes.join(', ')}
+Genres: ${selectedGenres.join(', ')}
+Lyrics: ${songInputController.text}
+combile all and return one song.
+''';
+
+                      BlocProvider.of<GenerateSongBloc>(context)
+                          .add(GenerateSong(prompt: prompt));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SongResult()));
+                    }
+                  },
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                     shape: RoundedRectangleBorder(
