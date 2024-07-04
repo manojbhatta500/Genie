@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:genie/blocs/message/message_bloc.dart';
+import 'package:genie/pages/message_result.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MessageInput extends StatefulWidget {
@@ -9,17 +12,10 @@ class MessageInput extends StatefulWidget {
 }
 
 class _MessageInputState extends State<MessageInput> {
-  String selectedMessageType = 'Flirty';
+  String selectedMessageType = 'Friendly';
   final TextEditingController situationController = TextEditingController();
 
   final Map<String, List<String>> messageSuggestions = {
-    'Flirty': [
-      "Hey gorgeous, thinking of you!",
-      "You make my heart race every time I see you.",
-      "Can't stop smiling because of you!",
-      "You are the highlight of my day.",
-      "You're amazing, just wanted to say hi!"
-    ],
     'Friendly': [
       "Hey buddy, how are you?",
       "Just wanted to catch up with you!",
@@ -142,7 +138,32 @@ class _MessageInputState extends State<MessageInput> {
               Center(
                 child: ElevatedButton(
                   onPressed: () {
-                    // Add logic here to generate messages based on selectedMessageType and situationController.text
+                    if (situationController.text.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            'Please select at least one story type and enter Extra story details.',
+                            style: GoogleFonts.crimsonPro(color: Colors.white),
+                          ),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    } else {
+                      final String screenInput = situationController.text;
+                      final String prompt = '''
+generate a simple message response  here are the details.
+
+discripton : $screenInput
+
+it also must have emoji  and beautiful
+''';
+                      BlocProvider.of<MessageBloc>(context)
+                          .add(GenerateMessage(inputPrompt: prompt));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MessageResult()));
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
