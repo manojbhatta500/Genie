@@ -6,3 +6,5 @@ sealed class FetchContentEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+final class FetchContent extends FetchContentEvent {}

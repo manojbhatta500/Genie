@@ -15,7 +15,7 @@ class SavedChatButton extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Container(
-          width: 130,
+          width: 150,
           height: 40,
           margin: EdgeInsets.symmetric(vertical: 20),
           decoration: BoxDecoration(
@@ -33,7 +33,7 @@ class SavedChatButton extends StatelessWidget {
                 color: Colors.white,
               ),
               Text(
-                'Saved Chat ',
+                'Saved Contents ',
                 style: GoogleFonts.crimsonPro(
                   color: CustomColors.whiteColor,
                   fontSize: 14,

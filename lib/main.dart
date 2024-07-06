@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:genie/blocs/auth_bloc/auth_bloc.dart';
+import 'package:genie/blocs/fetch_content/fetch_content_bloc.dart';
 import 'package:genie/blocs/generate_poetry/generate_poetry_bloc.dart';
 import 'package:genie/blocs/generate_song/generate_song_bloc.dart';
 import 'package:genie/blocs/generate_story/generate_story_bloc.dart';
@@ -40,6 +41,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => SaveContentBloc(),
+        ),
+        BlocProvider(
+          create: (context) => FetchContentBloc(),
         ),
       ],
       child: MaterialApp(

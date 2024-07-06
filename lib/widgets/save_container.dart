@@ -139,7 +139,9 @@ void SaveContainer(
 
                         BlocProvider.of<SaveContentBloc>(context).add(
                             SaveContent(
-                                title: title, content: content, type: type));
+                                title: titleController.text,
+                                content: content,
+                                type: type));
 
                         // Handle save action
                         // Navigator.of(context).pop();
