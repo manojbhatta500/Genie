@@ -148,7 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       content: Text('Failed Login. Try Again')));
                 } else if (state is LoginSuccess) {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ChatScreen()));
+                      MaterialPageRoute(builder: (context) => BottomNavBar()));
                 } else {
                   log('this is else state');
                 }

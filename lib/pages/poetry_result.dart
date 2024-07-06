@@ -27,6 +27,8 @@ class PoetryResult extends StatelessWidget {
                     onPressed: () {
                       SaveContainer(context,
                           hintText: 'Enter Poetry Title',
+                          content: state.promptResult,
+                          type: "Poetry",
                           title: 'poetry Title');
                     },
                     icon: Icon(Icons.save));

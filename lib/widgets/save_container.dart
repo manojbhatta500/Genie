@@ -1,9 +1,18 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:genie/blocs/save_content/save_content_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-void SaveContainer(BuildContext context,
-    {required String title, required String hintText}) {
-  TextEditingController saveController = TextEditingController();
+void SaveContainer(
+  BuildContext context, {
+  required String title,
+  required String hintText,
+  required String content,
+  required String type,
+}) {
+  TextEditingController titleController = TextEditingController();
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
@@ -42,7 +51,7 @@ void SaveContainer(BuildContext context,
               ),
               SizedBox(height: 20),
               TextField(
-                controller: saveController,
+                controller: titleController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
@@ -55,65 +64,137 @@ void SaveContainer(BuildContext context,
                 style: GoogleFonts.crimsonPro(color: Colors.black),
               ),
               SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      // Handle save action
-                      Navigator.of(context).pop();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      backgroundColor: Colors.deepPurple,
-                      textStyle: GoogleFonts.crimsonPro(fontSize: 18),
-                    ),
-                    child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            Colors.deepPurple,
-                            Color(0XFF64748B),
-                          ],
+              BlocListener<SaveContentBloc, SaveContentState>(
+                listener: (context, state) {
+                  if (state is SaveContentSuccess) {
+                    // ScaffoldMessenger.of(context).showSnackBar(
+                    //   SnackBar(
+                    //     content: Text(
+                    //       'Successfully saved',
+                    //       style: GoogleFonts.crimsonPro(color: Colors.white),
+                    //     ),
+                    //     backgroundColor: Colors.green,
+                    //   ),
+                    // );
+                    Fluttertoast.showToast(
+                      msg: 'Successfully saved',
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                      timeInSecForIosWeb: 1,
+                      backgroundColor: Colors.green,
+                      textColor: Colors.white,
+                      fontSize: 16.0,
+                    );
+                    Navigator.pop(context);
+                  } else if (state is SaveContentFailed) {
+                    // ScaffoldMessenger.of(context).showSnackBar(
+                    //   SnackBar(
+                    //     content: Text(
+                    //       'Could not save sorry !.',
+                    //       style: GoogleFonts.crimsonPro(color: Colors.white),
+                    //     ),
+                    //     backgroundColor: Colors.red,
+                    //   ),
+                    // );
+                    Fluttertoast.showToast(
+                      msg: 'Could not save sorry !.',
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                      timeInSecForIosWeb: 1,
+                      backgroundColor: Colors.green,
+                      textColor: Colors.white,
+                      fontSize: 16.0,
+                    );
+                    Navigator.pop(context);
+                  } else {
+                    log('this is just a else so it will probabbly work all the time ');
+                  }
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        if (titleController.text.isEmpty) {
+                          // ScaffoldMessenger.of(context).showSnackBar(
+                          //   SnackBar(
+                          //     content: Text(
+                          //       'you must give have title',
+                          //       style:
+                          //           GoogleFonts.crimsonPro(color: Colors.white),
+                          //     ),
+                          //     backgroundColor: Colors.red,
+                          //   ),
+                          // );
+                          Fluttertoast.showToast(
+                            msg: 'you must give have title',
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.green,
+                            textColor: Colors.white,
+                            fontSize: 16.0,
+                          );
+                        }
+
+                        BlocProvider.of<SaveContentBloc>(context).add(
+                            SaveContent(
+                                title: title, content: content, type: type));
+
+                        // Handle save action
+                        // Navigator.of(context).pop();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
                         ),
-                        borderRadius: BorderRadius.circular(30),
+                        backgroundColor: Colors.deepPurple,
+                        textStyle: GoogleFonts.crimsonPro(fontSize: 18),
                       ),
-                      child: Text(
-                        'Save',
-                        style: GoogleFonts.crimsonPro(color: Colors.white),
-                      ),
-                    ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      // Handle cancel action
-                      Navigator.of(context).pop();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      backgroundColor: Colors.grey[300],
-                      textStyle: GoogleFonts.crimsonPro(fontSize: 18),
-                    ),
-                    child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                      child: Text(
-                        'Cancel',
-                        style: GoogleFonts.crimsonPro(color: Colors.black),
+                      child: Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              Colors.deepPurple,
+                              Color(0XFF64748B),
+                            ],
+                          ),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: Text(
+                          'Save',
+                          style: GoogleFonts.crimsonPro(color: Colors.white),
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        backgroundColor: Colors.grey[300],
+                        textStyle: GoogleFonts.crimsonPro(fontSize: 18),
+                      ),
+                      child: Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                        child: Text(
+                          'Cancel',
+                          style: GoogleFonts.crimsonPro(color: Colors.black),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

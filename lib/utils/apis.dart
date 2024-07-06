@@ -6,4 +6,6 @@ class Apis {
   static String updateuser = '${baseUrl}/user/update';
 
   static String geminiKey = '${baseUrl}/key/key';
+
+  static String saveContent = '${baseUrl}/save/archives';
 }

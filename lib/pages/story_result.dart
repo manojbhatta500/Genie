@@ -26,7 +26,10 @@ class StoryResult extends StatelessWidget {
                 return IconButton(
                     onPressed: () {
                       SaveContainer(context,
-                          hintText: 'Enter Story Title', title: 'Story Title');
+                          hintText: 'Enter Story Title',
+                          title: 'Story Title',
+                          content: state.promptResponse,
+                          type: 'Story');
                     },
                     icon: Icon(Icons.save));
               } else {

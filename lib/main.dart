@@ -6,6 +6,7 @@ import 'package:genie/blocs/generate_song/generate_song_bloc.dart';
 import 'package:genie/blocs/generate_story/generate_story_bloc.dart';
 import 'package:genie/blocs/message/message_bloc.dart';
 import 'package:genie/blocs/normal_chat/normal_chat_bloc.dart';
+import 'package:genie/blocs/save_content/save_content_bloc.dart';
 import 'package:genie/pages/splash.dart';
 
 void main() {
@@ -36,6 +37,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => MessageBloc(),
+        ),
+        BlocProvider(
+          create: (context) => SaveContentBloc(),
         ),
       ],
       child: MaterialApp(

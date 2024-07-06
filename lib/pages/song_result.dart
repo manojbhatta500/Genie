@@ -26,7 +26,10 @@ class SongResult extends StatelessWidget {
                 return IconButton(
                     onPressed: () {
                       SaveContainer(context,
-                          hintText: 'Enter song Title', title: 'song Title');
+                          hintText: 'Enter song Title',
+                          title: 'song Title',
+                          content: state.promptResponse,
+                          type: 'Song');
                     },
                     icon: Icon(Icons.save));
               } else {
