@@ -1,9 +1,13 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:genie/pages/archive_screen.dart';
 import 'package:genie/pages/chat_screen.dart';
 import 'package:genie/pages/menus.dart';
 import 'package:genie/pages/option_screen.dart';
 import 'package:genie/pages/profile.dart';
+import 'package:genie/utils/token.dart';
+import 'package:genie/utils/token_service.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -30,6 +34,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   @override
   Widget build(BuildContext context) {
+    log("Token: ${Token.token}");
     return Scaffold(
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),

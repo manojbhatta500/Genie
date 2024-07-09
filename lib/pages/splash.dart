@@ -1,10 +1,12 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:genie/pages/bottomnavbar.dart';
 import 'package:genie/pages/login.dart';
 import 'package:genie/repository/key_repository.dart';
 import 'package:genie/repository/story_repository.dart';
 import 'package:genie/utils/key.dart';
+import 'package:genie/utils/token_service.dart';
 import 'package:genie/widgets/get_started_button.dart';
 import 'package:genie/utils/custom_colors.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -24,7 +26,25 @@ class _SplashScreenState extends State<SplashScreen> {
     final repoResponse = manager.fetchGeminiKey();
     log(repoResponse.toString());
 
+    _checkTokenAndNavigate();
+
     super.initState();
+  }
+
+  Future<void> _checkTokenAndNavigate() async {
+    await Future.delayed(
+        Duration(seconds: 2)); // To show splash screen for 2 seconds
+    String? token = await tokenService.getToken();
+    log("Token: $token");
+
+    if (token != null && token.isNotEmpty) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                BottomNavBar()), // Navigate to the home screen
+      );
+    }
   }
 
   @override

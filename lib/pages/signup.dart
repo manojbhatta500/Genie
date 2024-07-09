@@ -42,182 +42,184 @@ class _SignUpScreenState extends State<SignUpScreen> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: 0.03 * height,
-            ),
-            Text(
-              'You AI Assistant',
-              style: GoogleFonts.crimsonPro(
-                color: CustomColors.purpleColor,
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 0.03 * height,
               ),
-            ),
-            Text(
-              'Genie',
-              style: GoogleFonts.crimsonPro(
-                color: CustomColors.purpleColor,
-                fontSize: 26,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            SizedBox(
-              height: 0.1 * height,
-            ),
-            Center(
-              child: Text(
-                "SignUp ",
-                textAlign: TextAlign.center,
+              Text(
+                'You AI Assistant',
                 style: GoogleFonts.crimsonPro(
                   color: CustomColors.purpleColor,
                   fontSize: 16,
-                  fontWeight: FontWeight.w900,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
-            ),
-            CustomTextFormField(
-              hintText: 'UserName',
-              controller: userNameController,
-              prefixIcon: SizedBox(
-                  child: Icon(
-                Icons.person,
-                color: CustomColors.purpleColor,
-              )),
-            ),
-            CustomTextFormField(
-              hintText: 'E-mail ID',
-              controller: emailController,
-              prefixIcon: SizedBox(
-                child: SvgPicture.asset(
-                  'assets/mess.svg',
+              Text(
+                'Genie',
+                style: GoogleFonts.crimsonPro(
+                  color: CustomColors.purpleColor,
+                  fontSize: 26,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              SizedBox(
+                height: 0.1 * height,
+              ),
+              Center(
+                child: Text(
+                  "SignUp ",
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.crimsonPro(
+                    color: CustomColors.purpleColor,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+              ),
+              CustomTextFormField(
+                hintText: 'UserName',
+                controller: userNameController,
+                prefixIcon: SizedBox(
+                    child: Icon(
+                  Icons.person,
+                  color: CustomColors.purpleColor,
+                )),
+              ),
+              CustomTextFormField(
+                hintText: 'E-mail ID',
+                controller: emailController,
+                prefixIcon: SizedBox(
+                  child: SvgPicture.asset(
+                    'assets/mess.svg',
+                    width: 15,
+                    height: 15,
+                  ),
+                ),
+              ),
+              PasswordForm(
+                hintText: 'Password',
+                controller: passwordController,
+                obscureIcon: SvgPicture.asset(
+                  'assets/lock.svg',
                   width: 15,
                   height: 15,
                 ),
+                revealIcon: Icon(
+                  Icons.visibility,
+                  color: Colors.blue,
+                ),
               ),
-            ),
-            PasswordForm(
-              hintText: 'Password',
-              controller: passwordController,
-              obscureIcon: SvgPicture.asset(
-                'assets/lock.svg',
-                width: 15,
-                height: 15,
+              PasswordForm(
+                hintText: 'Confirm Password',
+                controller: confirmController,
+                obscureIcon: SvgPicture.asset(
+                  'assets/lock.svg',
+                  width: 15,
+                  height: 15,
+                ),
+                revealIcon: Icon(
+                  Icons.visibility,
+                  color: Colors.blue,
+                ),
               ),
-              revealIcon: Icon(
-                Icons.visibility,
-                color: Colors.blue,
+              SizedBox(
+                height: 20,
               ),
-            ),
-            PasswordForm(
-              hintText: 'Confirm Password',
-              controller: confirmController,
-              obscureIcon: SvgPicture.asset(
-                'assets/lock.svg',
-                width: 15,
-                height: 15,
-              ),
-              revealIcon: Icon(
-                Icons.visibility,
-                color: Colors.blue,
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            BlocListener<AuthBloc, AuthState>(
-              listener: (context, state) {
-                if (state is SignupSuccess) {
-                  // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  //     backgroundColor: Colors.green,
-                  //     content: Text('Account successfully created')));
-                  _showSuccessDialog(context);
+              BlocListener<AuthBloc, AuthState>(
+                listener: (context, state) {
+                  if (state is SignupSuccess) {
+                    // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    //     backgroundColor: Colors.green,
+                    //     content: Text('Account successfully created')));
+                    _showSuccessDialog(context);
 
-                  // Navigator.push(context,
-                  //     MaterialPageRoute(builder: (context) => ChatScreen()));
-                } else if (state is SignupFailed) {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      backgroundColor: Colors.red,
-                      content: Text('Signup Failed try again')));
-                } else {
-                  log('this is log of this ');
-                }
-              },
-              child: GestureDetector(
-                onTap: () {
-                  if (passwordController.text == confirmController.text) {
-                    BlocProvider.of<AuthBloc>(context).add(SignupEvent(
-                      email: emailController.text,
-                      password: passwordController.text,
-                      username: userNameController.text,
-                    ));
-                  } else {
+                    // Navigator.push(context,
+                    //     MaterialPageRoute(builder: (context) => ChatScreen()));
+                  } else if (state is SignupFailed) {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         backgroundColor: Colors.red,
-                        content: Text("Both password should match")));
+                        content: Text('Signup Failed try again')));
+                  } else {
+                    log('this is log of this ');
                   }
                 },
-                child: Container(
-                  height: 50,
-                  width: 0.7 * width,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    color: CustomColors.purpleColor,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      BlocBuilder<AuthBloc, AuthState>(
-                        builder: (context, state) {
-                          if (state is SignupLoading) {
-                            return Align(
+                child: GestureDetector(
+                  onTap: () {
+                    if (passwordController.text == confirmController.text) {
+                      BlocProvider.of<AuthBloc>(context).add(SignupEvent(
+                        email: emailController.text,
+                        password: passwordController.text,
+                        username: userNameController.text,
+                      ));
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          backgroundColor: Colors.red,
+                          content: Text("Both password should match")));
+                    }
+                  },
+                  child: Container(
+                    height: 50,
+                    width: 0.7 * width,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: CustomColors.purpleColor,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        BlocBuilder<AuthBloc, AuthState>(
+                          builder: (context, state) {
+                            if (state is SignupLoading) {
+                              return Align(
+                                  alignment: Alignment.center,
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white,
+                                  ));
+                            } else {
+                              return Align(
                                 alignment: Alignment.center,
-                                child: CircularProgressIndicator(
-                                  color: Colors.white,
-                                ));
-                          } else {
-                            return Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                'SignUp',
-                                style: GoogleFonts.crimsonPro(
-                                  color: CustomColors.whiteColor,
-                                  fontSize: 19,
-                                  fontWeight: FontWeight.w700,
+                                child: Text(
+                                  'SignUp',
+                                  style: GoogleFonts.crimsonPro(
+                                    color: CustomColors.whiteColor,
+                                    fontSize: 19,
+                                    fontWeight: FontWeight.w700,
+                                  ),
                                 ),
-                              ),
-                            );
-                          }
-                        },
-                      ),
-                    ],
+                              );
+                            }
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LoginScreen()));
-              },
-              child: Text(
-                'Already have an account? LogIn',
-                style: GoogleFonts.crimsonPro(
-                  color: Color(0XFF64748B),
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
+              SizedBox(
+                height: 20,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()));
+                },
+                child: Text(
+                  'Already have an account? LogIn',
+                  style: GoogleFonts.crimsonPro(
+                    color: Color(0XFF64748B),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

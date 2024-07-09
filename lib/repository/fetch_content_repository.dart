@@ -27,7 +27,7 @@ class FetchContentRepository {
         final data = ContentModel.fromJson(responseJson);
         return Right(data);
       } else {
-        log('this is try statement form else status code 200 ');
+        log('this is try statement form else status code 200');
         return Left(false);
       }
     } catch (e) {

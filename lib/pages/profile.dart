@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:genie/pages/about_us_screen.dart';
 import 'package:genie/pages/privacy_policy.dart';
+import 'package:genie/pages/splash.dart';
+import 'package:genie/pages/user_profile_screen.dart';
+import 'package:genie/utils/token_service.dart';
 import 'package:genie/widgets/profile_container.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -51,10 +54,15 @@ class _ProfileState extends State<Profile> {
                   color: Color(0xFFF5F6F8)),
               child: Column(
                 children: [
-                  ProfileContainer(
-                    title: 'Profile',
-                    onButtonPressed: () {},
-                  ),
+                  // ProfileContainer(
+                  //   title: 'Profile',
+                  //   onButtonPressed: () {
+                  //     Navigator.push(
+                  //         context,
+                  //         MaterialPageRoute(
+                  //             builder: (context) => UserProfileScreen()));
+                  //   },
+                  // ),
                   ProfileContainer(
                     title: 'About us',
                     onButtonPressed: () {
@@ -75,7 +83,14 @@ class _ProfileState extends State<Profile> {
                   ),
                   ProfileContainer(
                     title: 'Log out',
-                    onButtonPressed: () {},
+                    onButtonPressed: () async {
+                      await tokenService.clearToken();
+
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SplashScreen()));
+                    },
                   ),
                 ],
               ),

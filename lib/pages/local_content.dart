@@ -1,4 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:genie/blocs/delete_content/delete_content_bloc.dart';
+import 'package:genie/blocs/fetch_content/fetch_content_bloc.dart';
 import 'package:genie/models/content_model.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -23,25 +28,31 @@ class LocalContent extends StatelessWidget {
         backgroundColor: const Color(0XFF64748B),
         elevation: 1,
         iconTheme: const IconThemeData(color: Colors.white),
-        // actions: [
-        //   BlocBuilder<GeneratePoetryBloc, GeneratePoetryState>(
-        //     builder: (context, state) {
-        //       if (state is GeneratePoetrySuccess) {
-        //         return IconButton(
-        //             onPressed: () {
-        //               SaveContainer(context,
-        //                   hintText: 'Enter Poetry Title',
-        //                   content: state.promptResult,
-        //                   type: "Poetry",
-        //                   title: 'poetry Title');
-        //             },
-        //             icon: Icon(Icons.save));
-        //       } else {
-        //         return Text('');
-        //       }
-        //     },
-        //   )
-        // ],
+        actions: [
+          BlocListener<DeleteContentBloc, DeleteContentState>(
+            listener: (context, state) {
+              if (state is DeleteContentSuccess) {
+                log('delete content success is called');
+                Navigator.pop(
+                    context, true); // Pass true to indicate a successful delete
+              } else if (state is DeleteContentFailed) {
+                log('delete content failed is called');
+                Navigator.pop(context, false); // Pass false to indicate failure
+              } else if (state is DeleteContentLoading) {
+                log('delete content loading is called');
+              } else {
+                log('this will probably not happen');
+              }
+            },
+            child: IconButton(
+              onPressed: () {
+                BlocProvider.of<DeleteContentBloc>(context)
+                    .add(DeleteContent(id: data.sId!));
+              },
+              icon: Icon(Icons.delete),
+            ),
+          )
+        ],
       ),
       body: Container(
         color: const Color(0xFFF8F9FA),
@@ -50,41 +61,35 @@ class LocalContent extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Text(
-              //   'Generated Poetry',
-              //   style: GoogleFonts.crimsonPro(
-              //     color: Colors.black,
-              //     fontSize: 22,
-              //     fontWeight: FontWeight.bold,
-              //   ),
-              // ),
               const SizedBox(height: 20),
               Container(
-                  padding: const EdgeInsets.all(16.0),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(15),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 2,
-                        blurRadius: 5,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                  child: Text(
-                    cleanedPromptResponse,
-                    style: GoogleFonts.crimsonPro(
-                      color: Colors.black,
-                      fontSize: 18,
+                padding: const EdgeInsets.all(16.0),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 5,
+                      offset: const Offset(0, 3),
                     ),
-                  )),
+                  ],
+                ),
+                child: Text(
+                  cleanedPromptResponse,
+                  style: GoogleFonts.crimsonPro(
+                    color: Colors.black,
+                    fontSize: 18,
+                  ),
+                ),
+              ),
               const SizedBox(height: 20),
               Center(
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pop();
+                    Navigator.of(context)
+                        .pop(); // No need to fetch content here
                   },
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:genie/blocs/auth_bloc/auth_bloc.dart';
+import 'package:genie/blocs/delete_content/delete_content_bloc.dart';
 import 'package:genie/blocs/fetch_content/fetch_content_bloc.dart';
 import 'package:genie/blocs/generate_poetry/generate_poetry_bloc.dart';
 import 'package:genie/blocs/generate_song/generate_song_bloc.dart';
@@ -13,6 +14,8 @@ import 'package:genie/pages/splash.dart';
 void main() {
   runApp(const MyApp());
 }
+
+final RouteObserver<ModalRoute> routeObserver = RouteObserver<ModalRoute>();
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -45,8 +48,13 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => FetchContentBloc(),
         ),
+        BlocProvider(
+          create: (context) => DeleteContentBloc(),
+        ),
       ],
+      //
       child: MaterialApp(
+        navigatorObservers: [routeObserver],
         debugShowCheckedModeBanner: false,
         home: SplashScreen(),
       ),

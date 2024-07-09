@@ -1,5 +1,5 @@
 class Apis {
-  static String baseUrl = 'http://localhost:8080';
+  static String baseUrl = 'https://genie-backend-jtgc.onrender.com';
 
   static String loginApi = '${baseUrl}/user/login';
   static String signupApi = '${baseUrl}/user/signup';
